@@ -1,6 +1,7 @@
 require('dotenv').config()
 
 const express = require('express')
+const employeeRoutes = require('./routes/employeeRoutes');
 
 //Services
 const productServices = require('./routes/inventory-route')
@@ -27,8 +28,10 @@ app.listen(process.env.PORT, () =>{
 app.use(`${mapper}/inventory`, productServices)
 app.use(`${mapper}/pos`, posServices)
 app.use(`${mapper}/auth`, authService)
+app.use('/api', employeeRoutes);
 
 //if no request match
 app.use((req, res) =>{
     res.status(404).json({error: 'No such endpoint exists'})
 })
+
